@@ -1,0 +1,1208 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeaderNav from '../components/HeaderNav.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import Footer from '../components/Footer.astro';
+
+// Import all data from the config file
+// ✏️ Edit src/data/portfolio.config.ts to update your content
+import {
+  personalInfo,
+  experiences,
+  projects,
+  education,
+  achievements,
+  certifications,
+  hobbies,
+  interests,
+  sectionConfig,
+  siteConfig,
+} from '../data/portfolio.config';
+---
+
+<BaseLayout title={siteConfig.title} description={siteConfig.description}>
+  <HeaderNav />
+  
+  <main>
+    <Hero 
+      name={personalInfo.name}
+      tagline={personalInfo.tagline}
+      description={personalInfo.description}
+    />
+    
+    <!-- Experience Section -->
+    <Section id="experience" title={sectionConfig.experience.title} subtitle={sectionConfig.experience.subtitle}>
+      <div class="timeline">
+        {experiences.map((exp, index) => (
+          <article class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">{exp.title}</h3>
+              <p class="timeline-company">{exp.company}</p>
+              <time class="timeline-period">{exp.period}</time>
+              <p class="timeline-description">{exp.description}</p>
+              <div class="tech-tags">
+                {exp.skills.map(t => <span class="tech-tag">{t}</span>)}
+              </div>
+              {exp.highlights && exp.highlights.length > 0 && (
+                <ul class="timeline-highlights">
+                  {exp.highlights.map(h => <li>{h}</li>)}
+                </ul>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </Section>
+    
+    <!-- Projects Section -->
+    <Section id="projects" title={sectionConfig.projects.title} subtitle={sectionConfig.projects.subtitle}>
+      <div class="projects-grid">
+        {projects.map(project => (
+          <article class="project-card stagger-item">
+            <div class="project-header">
+              <h3 class="project-title">{project.title}</h3>
+              {project.role && <span class="project-role">{project.role}</span>}
+            </div>
+            <p class="project-description">{project.description}</p>
+            {project.metrics && <p class="project-metrics">{project.metrics}</p>}
+            <div class="tech-tags">
+              {project.skills.map(t => <span class="tech-tag">{t}</span>)}
+            </div>
+            {project.link && <a href={project.link} class="project-link" target="_blank" rel="noopener">View Project →</a>}
+          </article>
+        ))}
+      </div>
+    </Section>
+    
+    <!-- Education Section -->
+    <Section id="education" title={sectionConfig.education.title} subtitle={sectionConfig.education.subtitle}>
+      <div class="education-grid">
+        {education.map(edu => (
+          <article class="education-card stagger-item">
+            <h3 class="education-degree">{edu.degree}</h3>
+            {edu.field && <p class="education-field">{edu.field}</p>}
+            <p class="education-school">{edu.school}</p>
+            <time class="education-year">{edu.year}</time>
+            {edu.highlights && edu.highlights.length > 0 && (
+              <ul class="education-highlights">
+                {edu.highlights.map(h => <li>{h}</li>)}
+              </ul>
+            )}
+          </article>
+        ))}
+      </div>
+    </Section>
+    
+    <!-- Achievements Section -->
+    <Section id="achievements" title={sectionConfig.achievements.title} subtitle={sectionConfig.achievements.subtitle}>
+      <div class="achievements-grid">
+        {achievements.map(achievement => (
+          <article class="achievement-card stagger-item">
+            <span class="achievement-icon">{achievement.icon}</span>
+            <div class="achievement-content">
+              <h3 class="achievement-title">{achievement.title}</h3>
+              <p class="achievement-org">{achievement.organization} • {achievement.year}</p>
+              <p class="achievement-description">{achievement.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </Section>
+    
+    <!-- Certifications Section -->
+    <Section id="certifications" title={sectionConfig.certifications.title} subtitle={sectionConfig.certifications.subtitle}>
+      <div class="certifications-grid">
+        {certifications.map(cert => (
+          <article class="certification-card stagger-item" style={`--cert-color: ${cert.color}`}>
+            <div class="cert-badge"></div>
+            <h3 class="cert-name">{cert.name}</h3>
+            <p class="cert-issuer">{cert.issuer}</p>
+            <div class="cert-meta">
+              <time class="cert-year">{cert.year}</time>
+              {cert.credentialId && <span class="cert-id">ID: {cert.credentialId}</span>}
+            </div>
+          </article>
+        ))}
+      </div>
+    </Section>
+    
+    <!-- Hobbies Section -->
+    <Section id="hobbies" title={sectionConfig.hobbies.title} subtitle={sectionConfig.hobbies.subtitle}>
+      <div class="hobbies-grid">
+        {hobbies.map(hobby => (
+          <article class="hobby-card stagger-item">
+            <span class="hobby-icon">{hobby.icon}</span>
+            <h3 class="hobby-name">{hobby.name}</h3>
+            <p class="hobby-description">{hobby.description}</p>
+          </article>
+        ))}
+      </div>
+    </Section>
+    
+    <!-- Interests Section -->
+    <Section id="interests" title={sectionConfig.interests.title} subtitle={sectionConfig.interests.subtitle}>
+      <div class="interests-container">
+        {interests.map(interest => (
+          <span class="interest-tag stagger-item">
+            <span class="interest-icon">{interest.icon}</span>
+            {interest.name}
+          </span>
+        ))}
+      </div>
+    </Section>
+    
+    <!-- Contact Section -->
+    <Section id="contact" title={sectionConfig.contact.title} subtitle={sectionConfig.contact.subtitle}>
+      <div class="contact-content">
+        <p class="contact-text">
+          {sectionConfig.contact.description}
+        </p>
+        <a href={`mailto:${personalInfo.email}`} class="contact-btn">
+          {sectionConfig.contact.ctaText}
+        </a>
+      </div>
+    </Section>
+  </main>
+  
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* Timeline Styles */
+  .timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding-left: var(--space-lg);
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 7px;
+    bottom: calc(var(--space-xl) + 7px);
+    width: 2px;
+    background: linear-gradient(to bottom, var(--color-primary), var(--color-accent));
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: var(--space-xl);
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideInTimeline 0.6s ease forwards;
+  }
+
+  .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+  .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+  .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+  .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+  .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+  .timeline-item:nth-child(n+6) { animation-delay: 0.6s; }
+
+  @keyframes slideInTimeline {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Last timeline item - no bottom padding */
+  .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: calc(-1 * var(--space-lg) - 6px);
+    top: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    border: 3px solid var(--color-bg);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    z-index: 1;
+  }
+
+  .timeline-item:hover .timeline-marker {
+    transform: scale(1.4);
+    box-shadow: 0 0 0 4px var(--color-bg), 0 0 0 6px var(--color-primary);
+  }
+
+  /* Special styling for last marker */
+  .timeline-item:last-child .timeline-marker {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    width: 18px;
+    height: 18px;
+    left: calc(-1 * var(--space-lg) - 8px);
+  }
+
+  .timeline-content {
+    background-color: var(--color-bg-secondary);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .timeline-item:hover .timeline-content {
+    transform: translateX(8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-primary);
+  }
+
+  /* Connector line from marker to content */
+  .timeline-item::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    width: calc(var(--space-lg) - 12px);
+    height: 2px;
+    background: var(--color-primary);
+    opacity: 0.3;
+    transition: opacity 0.3s ease, width 0.3s ease;
+  }
+
+  .timeline-item:hover::after {
+    opacity: 1;
+    width: calc(var(--space-lg) - 4px);
+  }
+
+  .timeline-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--space-xs);
+    transition: color 0.3s ease;
+  }
+
+  .timeline-item:hover .timeline-title {
+    color: var(--color-primary);
+  }
+
+  .timeline-company {
+    color: var(--color-primary);
+    font-weight: 500;
+    margin-bottom: var(--space-xs);
+    transition: transform 0.3s ease;
+  }
+
+  .timeline-item:hover .timeline-company {
+    transform: translateX(4px);
+  }
+
+  .timeline-period {
+    display: inline-block;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-bottom: var(--space-md);
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-bg);
+    border-radius: var(--radius-sm);
+    transition: background-color 0.3s ease;
+  }
+
+  .timeline-item:hover .timeline-period {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .timeline-description {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  .timeline-highlights {
+    list-style: none;
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px dashed var(--color-border);
+  }
+
+  .timeline-highlights li {
+    position: relative;
+    padding-left: var(--space-md);
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .timeline-highlights li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+  }
+
+  /* Tech Tags */
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .tech-tag {
+    padding: var(--space-xs) var(--space-sm);
+    background-color: var(--color-bg);
+    color: var(--color-primary);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  /* Projects Grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .project-card {
+    background-color: var(--color-bg-secondary);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.4s ease,
+                border-color 0.3s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    border-color: var(--color-primary);
+  }
+
+  .project-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-sm);
+  }
+
+  .project-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .project-role {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-accent);
+    padding: var(--space-xs) var(--space-sm);
+    background-color: var(--color-bg);
+    border-radius: var(--radius-sm);
+    width: fit-content;
+  }
+
+  .project-description {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-sm);
+    transition: color 0.3s ease;
+  }
+
+  .project-card:hover .project-description {
+    color: var(--color-text);
+  }
+
+  .project-metrics {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: var(--space-md);
+    padding: var(--space-xs) 0;
+    border-left: 3px solid var(--color-primary);
+    padding-left: var(--space-sm);
+    transition: transform 0.3s ease, padding-left 0.3s ease;
+  }
+
+  .project-card:hover .project-metrics {
+    transform: translateX(4px);
+    padding-left: calc(var(--space-sm) + 4px);
+  }
+
+  .project-role {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .project-card:hover .project-role {
+    transform: scale(1.05);
+    background-color: var(--color-accent);
+    color: white;
+  }
+
+  .project-link {
+    display: inline-block;
+    margin-top: var(--space-md);
+    font-weight: 500;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .project-card:hover .project-link {
+    transform: translateX(6px);
+    color: var(--color-primary);
+  }
+
+  /* Education Grid */
+  .education-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .education-card {
+    background-color: var(--color-bg-secondary);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .education-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .education-degree {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--space-xs);
+  }
+
+  .education-field {
+    color: var(--color-accent);
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .education-school {
+    color: var(--color-primary);
+    font-weight: 500;
+    margin-bottom: var(--space-xs);
+  }
+
+  .education-year {
+    display: block;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .education-highlights {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .education-highlights li {
+    padding: var(--space-xs) var(--space-sm);
+    background-color: var(--color-bg);
+    color: var(--color-accent);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  /* Contact Section */
+  .contact-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact-text {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+  }
+
+  .contact-btn {
+    display: inline-block;
+    padding: var(--space-md) var(--space-xl);
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 1.125rem;
+    transition: all var(--transition-fast);
+  }
+
+  .contact-btn:hover {
+    background-color: var(--color-primary-hover);
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  /* Achievements Section */
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .achievement-card {
+    display: flex;
+    gap: var(--space-md);
+    background-color: var(--color-bg-secondary);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .achievement-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .achievement-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  .achievement-content {
+    flex: 1;
+  }
+
+  .achievement-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--space-xs);
+  }
+
+  .achievement-org {
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: var(--space-sm);
+  }
+
+  .achievement-description {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  /* Certifications Section */
+  .certifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .certification-card {
+    background-color: var(--color-bg-secondary);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    border-top: 4px solid var(--cert-color, var(--color-primary));
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    position: relative;
+  }
+
+  .certification-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .cert-badge {
+    width: 40px;
+    height: 40px;
+    background: var(--cert-color, var(--color-primary));
+    border-radius: 50%;
+    margin-bottom: var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .cert-badge::after {
+    content: '✓';
+    color: white;
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+
+  .cert-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--space-xs);
+  }
+
+  .cert-issuer {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .cert-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .cert-year {
+    background-color: var(--color-bg);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+  }
+
+  .cert-id {
+    font-family: var(--font-mono);
+    opacity: 0.7;
+  }
+
+  /* Hobbies Section */
+  .hobbies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .hobby-card {
+    background-color: var(--color-bg-secondary);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    text-align: center;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .hobby-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .hobby-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .hobby-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--space-sm);
+  }
+
+  .hobby-description {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  /* Interests Section */
+  .interests-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+
+  .interest-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-lg);
+    background: linear-gradient(135deg, var(--color-bg-secondary), var(--color-bg));
+    border: 1px solid var(--color-border);
+    border-radius: 50px;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: all var(--transition-fast);
+  }
+
+  .interest-tag:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .interest-icon {
+    font-size: 1.25rem;
+  }
+
+  /* ============================================
+     🎬 FASCINATING ANIMATIONS
+     ============================================ */
+
+  /* Scroll Reveal Animation */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Staggered entrance for grid items */
+  .stagger-item {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .stagger-item.revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Floating animation for icons */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .hobby-icon,
+  .achievement-icon,
+  .cert-badge {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .hobby-card:nth-child(2) .hobby-icon,
+  .achievement-card:nth-child(2) .achievement-icon,
+  .certification-card:nth-child(2) .cert-badge {
+    animation-delay: 0.5s;
+  }
+
+  .hobby-card:nth-child(3) .hobby-icon,
+  .achievement-card:nth-child(3) .achievement-icon,
+  .certification-card:nth-child(3) .cert-badge {
+    animation-delay: 1s;
+  }
+
+  .hobby-card:nth-child(4) .hobby-icon,
+  .achievement-card:nth-child(4) .achievement-icon,
+  .certification-card:nth-child(4) .cert-badge {
+    animation-delay: 1.5s;
+  }
+
+  /* Pulse glow effect on hover */
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 5px var(--color-primary); }
+    50% { box-shadow: 0 0 25px var(--color-primary), 0 0 50px var(--color-primary); }
+  }
+
+  .project-card:hover,
+  .certification-card:hover,
+  .achievement-card:hover,
+  .hobby-card:hover,
+  .education-card:hover {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  /* Tilt effect on cards (via CSS perspective) */
+  .tilt-card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  /* Interest tag bounce */
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  .interest-tag:hover {
+    animation: bounce 0.5s ease;
+  }
+
+  /* Timeline marker pulse */
+  @keyframes markerPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 var(--color-primary); }
+    50% { transform: scale(1.2); box-shadow: 0 0 0 10px transparent; }
+  }
+
+  .timeline-item:hover .timeline-marker {
+    animation: markerPulse 1s ease infinite;
+  }
+
+  /* Card shine effect - uniform across all cards */
+  .project-card::before,
+  .education-card::before,
+  .achievement-card::before,
+  .certification-card::before,
+  .hobby-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .project-card,
+  .education-card,
+  .achievement-card,
+  .certification-card,
+  .hobby-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card:hover::before,
+  .education-card:hover::before,
+  .achievement-card:hover::before,
+  .certification-card:hover::before,
+  .hobby-card:hover::before {
+    left: 100%;
+  }
+
+  /* Magnetic button effect placeholder class */
+  .magnetic-btn {
+    transition: transform 0.3s ease;
+  }
+
+  /* Gradient text animation - uniform across all card titles */
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .project-title,
+  .education-degree,
+  .achievement-title,
+  .cert-name,
+  .hobby-name {
+    background: linear-gradient(135deg, var(--color-text), var(--color-primary), var(--color-accent), var(--color-text));
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    transition: color 0.3s ease;
+  }
+
+  .project-card:hover .project-title,
+  .education-card:hover .education-degree,
+  .achievement-card:hover .achievement-title,
+  .certification-card:hover .cert-name,
+  .hobby-card:hover .hobby-name {
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s ease infinite;
+  }
+
+  /* Wave animation for tech tags - scalable for any number */
+  .tech-tags .tech-tag {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                background-color 0.3s ease,
+                box-shadow 0.3s ease;
+  }
+
+  .project-card:hover .tech-tag {
+    transform: translateY(-4px);
+    background-color: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(var(--color-primary-rgb, 59, 130, 246), 0.3);
+  }
+
+  /* Staggered delays using CSS custom properties */
+  .project-card .tech-tag:nth-child(1) { transition-delay: 0s; }
+  .project-card .tech-tag:nth-child(2) { transition-delay: 0.05s; }
+  .project-card .tech-tag:nth-child(3) { transition-delay: 0.1s; }
+  .project-card .tech-tag:nth-child(4) { transition-delay: 0.15s; }
+  .project-card .tech-tag:nth-child(5) { transition-delay: 0.2s; }
+  .project-card .tech-tag:nth-child(6) { transition-delay: 0.25s; }
+  .project-card .tech-tag:nth-child(7) { transition-delay: 0.3s; }
+  .project-card .tech-tag:nth-child(8) { transition-delay: 0.35s; }
+  .project-card .tech-tag:nth-child(n+9) { transition-delay: 0.4s; }
+
+  /* Reset delays on mouse leave for instant reset */
+  .project-card:not(:hover) .tech-tag {
+    transition-delay: 0s !important;
+  }
+
+  /* Smooth underline animation for links */
+  .project-link {
+    position: relative;
+  }
+
+  .project-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-primary);
+    transition: width 0.3s ease;
+  }
+
+  .project-link:hover::after {
+    width: 100%;
+  }
+
+  /* Contact button special effect */
+  .contact-btn {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .contact-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: var(--color-accent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    z-index: -1;
+  }
+
+  .contact-btn:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-reveal,
+    .stagger-item {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    
+    .hobby-icon,
+    .achievement-icon {
+      animation: none;
+    }
+    
+    .project-card:hover,
+    .certification-card:hover {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // ============================================
+  // 🎬 ANIMATION SCRIPTS
+  // ============================================
+
+  // Scroll Reveal Animation
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        // Add staggered delay for grid items
+        const delay = entry.target.classList.contains('stagger-item') 
+          ? index * 100 
+          : 0;
+        
+        setTimeout(() => {
+          entry.target.classList.add('revealed');
+        }, delay);
+        
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Apply scroll reveal to sections
+  document.querySelectorAll('section').forEach(section => {
+    section.classList.add('scroll-reveal');
+    revealObserver.observe(section);
+  });
+
+  // Apply stagger effect to grid items - per grid for proper sequencing
+  const grids = document.querySelectorAll('.projects-grid, .education-grid, .achievements-grid, .certifications-grid, .hobbies-grid, .interests-container');
+  
+  grids.forEach(grid => {
+    const items = grid.querySelectorAll('.stagger-item');
+    items.forEach((item, index) => {
+      item.style.transitionDelay = `${index * 0.1}s`;
+      revealObserver.observe(item);
+    });
+  });
+
+  // ============================================
+  // 🧲 MAGNETIC BUTTON EFFECT
+  // ============================================
+  const magneticBtns = document.querySelectorAll('.contact-btn, .project-link');
+  
+  magneticBtns.forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      
+      btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+    });
+    
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = 'translate(0, 0)';
+    });
+  });
+
+  // ============================================
+  // 🎴 3D TILT EFFECT ON CARDS
+  // ============================================
+  const tiltCards = document.querySelectorAll('.project-card, .education-card, .achievement-card, .certification-card, .hobby-card');
+  
+  tiltCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = (y - centerY) / 10;
+      const rotateY = (centerX - x) / 10;
+      
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+    });
+  });
+
+  // ============================================
+  // ✨ INTEREST TAGS RIPPLE EFFECT
+  // ============================================
+  const interestTags = document.querySelectorAll('.interest-tag');
+  
+  interestTags.forEach(tag => {
+    tag.addEventListener('click', (e) => {
+      const ripple = document.createElement('span');
+      const rect = tag.getBoundingClientRect();
+      
+      ripple.style.cssText = `
+        position: absolute;
+        border-radius: 50%;
+        background: var(--color-primary);
+        opacity: 0.4;
+        pointer-events: none;
+        transform: scale(0);
+        animation: rippleEffect 0.6s ease-out forwards;
+      `;
+      
+      const size = Math.max(rect.width, rect.height);
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+      
+      tag.style.position = 'relative';
+      tag.style.overflow = 'hidden';
+      tag.appendChild(ripple);
+      
+      setTimeout(() => ripple.remove(), 600);
+    });
+  });
+
+  // Add ripple keyframes dynamically
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes rippleEffect {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // ============================================
+  // 🔢 COUNTER ANIMATION FOR METRICS
+  // ============================================
+  const animateCounter = (el, target) => {
+    const duration = 2000;
+    const start = 0;
+    const startTime = performance.now();
+    
+    const update = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      
+      el.textContent = Math.floor(start + (target - start) * easeOut);
+      
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = target;
+      }
+    };
+    
+    requestAnimationFrame(update);
+  };
+
+  // ============================================
+  // 🌊 SMOOTH SECTION PARALLAX (disabled for timeline to avoid conflicts)
+  // ============================================
+  // Timeline now uses CSS animations instead of JS parallax for better performance
+
+  // ============================================
+  // 🎯 CURSOR TRAIL EFFECT (SUBTLE)
+  // ============================================
+  let lastTrailTime = 0;
+  const trailInterval = 50; // ms between trail dots
+  
+  document.addEventListener('mousemove', (e) => {
+    const now = Date.now();
+    if (now - lastTrailTime < trailInterval) return;
+    lastTrailTime = now;
+    
+    // Only show trail on main content area, not too often
+    if (Math.random() > 0.3) return;
+    
+    const trail = document.createElement('div');
+    trail.style.cssText = `
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.6;
+      left: ${e.clientX}px;
+      top: ${e.clientY}px;
+      animation: trailFade 0.8s ease-out forwards;
+    `;
+    
+    document.body.appendChild(trail);
+    setTimeout(() => trail.remove(), 800);
+  });
+
+  // Add trail keyframes
+  const trailStyle = document.createElement('style');
+  trailStyle.textContent = `
+    @keyframes trailFade {
+      0% { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(0); opacity: 0; }
+    }
+  `;
+  document.head.appendChild(trailStyle);
+
+  console.log('✨ Animations loaded! Enjoy the experience.');
+</script>

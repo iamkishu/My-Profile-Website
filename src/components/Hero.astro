@@ -1,0 +1,1496 @@
+---
+interface Props {
+  name?: string;
+  tagline?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  name = "Your Name",
+  tagline = "Full Stack Developer",
+  description = "Building beautiful, performant web experiences with modern technologies.",
+  image = ""
+} = Astro.props;
+---
+
+<section class="hero" id="hero">
+  <!-- Star sparkle container -->
+  <div class="sparkle-container" id="sparkle-container"></div>
+  
+  <div class="hero-content">
+    <div class="hero-text">
+      <p class="greeting">
+        <span class="wave-emoji">👋</span> Hello, I'm
+      </p>
+      <h1 class="name">
+        <span class="typing-text" id="typing-name">{name}</span>
+        <span class="typing-cursor">|</span>
+      </h1>
+      <h2 class="tagline">
+        <span class="tagline-words" id="tagline-container">
+          {tagline.split(' ').map((word, i) => (
+            <span class="tagline-word" style={`animation-delay: ${0.5 + i * 0.1}s`}>{word}</span>
+          ))}
+        </span>
+      </h2>
+      <p class="description fade-in-up">{description}</p>
+      
+      <div class="cta-buttons">
+        <a href="/resume.pdf" class="btn btn-primary magnetic-hover download-resume" download="Bala_Sai_Kishore_Kadiyam_Resume.pdf">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span class="btn-text">Download Resume</span>
+        </a>
+        <a href="#contact" class="btn btn-secondary magnetic-hover">
+          <span class="btn-text">Get in Touch</span>
+          <span class="btn-icon">💬</span>
+        </a>
+      </div>
+      
+      <!-- Scroll indicator -->
+      <div class="scroll-indicator">
+        <div class="mouse">
+          <div class="wheel"></div>
+        </div>
+        <span class="scroll-text">Scroll to explore</span>
+      </div>
+    </div>
+    
+    <div class="hero-visual" id="hero-visual">
+      <div class="profile-image-container" id="character-container">
+        <!-- Animated Character - Modern Avatar -->
+        <div class="animated-character" id="animated-character">
+          <!-- Floating particles around character -->
+          <div class="character-particles">
+            <span class="particle p1">✦</span>
+            <span class="particle p2">✧</span>
+            <span class="particle p3">◈</span>
+            <span class="particle p4">✦</span>
+            <span class="particle p5">◇</span>
+          </div>
+          
+          <!-- Glow ring behind character -->
+          <div class="character-glow"></div>
+          <div class="character-glow glow-2"></div>
+          
+          <!-- Character Container -->
+          <div class="character-body">
+            <!-- Head with face -->
+            <div class="character-head">
+              <!-- Animated gradient background -->
+              <div class="head-bg"></div>
+              
+              <!-- Hair with animation -->
+              <div class="character-hair">
+                <div class="hair-strand s1"></div>
+                <div class="hair-strand s2"></div>
+                <div class="hair-strand s3"></div>
+              </div>
+              
+              <!-- Face -->
+              <div class="character-face">
+                <!-- Eyes with blink animation -->
+                <div class="character-eyes">
+                  <div class="eye left-eye">
+                    <div class="eye-white">
+                      <div class="iris">
+                        <div class="pupil"></div>
+                        <div class="eye-shine"></div>
+                      </div>
+                    </div>
+                    <div class="eyelid"></div>
+                  </div>
+                  <div class="eye right-eye">
+                    <div class="eye-white">
+                      <div class="iris">
+                        <div class="pupil"></div>
+                        <div class="eye-shine"></div>
+                      </div>
+                    </div>
+                    <div class="eyelid"></div>
+                  </div>
+                </div>
+                
+                <!-- Eyebrows -->
+                <div class="eyebrow left-eyebrow"></div>
+                <div class="eyebrow right-eyebrow"></div>
+                
+                <!-- Nose -->
+                <div class="character-nose"></div>
+                
+                <!-- Mouth with expressions -->
+                <div class="character-mouth">
+                  <div class="mouth-inner"></div>
+                </div>
+                
+                <!-- Blush cheeks -->
+                <div class="blush left-blush"></div>
+                <div class="blush right-blush"></div>
+              </div>
+            </div>
+            
+            <!-- Body/Torso -->
+            <div class="character-torso">
+              <!-- Shirt design -->
+              <div class="shirt-collar"></div>
+              <div class="shirt-logo">💻</div>
+              
+              <!-- Arms -->
+              <div class="arm left-arm">
+                <div class="forearm">
+                  <div class="hand">
+                    <span class="hand-emoji">🤚</span>
+                  </div>
+                </div>
+              </div>
+              <div class="arm right-arm">
+                <div class="forearm">
+                  <div class="hand">
+                    <span class="hand-emoji">👋</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Speech Bubble with better design -->
+          <div class="speech-bubble" id="speech-bubble">
+            <div class="bubble-content">
+              <span class="speech-text" id="speech-text">Hi there! 👋</span>
+            </div>
+            <div class="bubble-tail"></div>
+          </div>
+          
+          <!-- Action indicators -->
+          <div class="action-hearts" id="action-hearts">
+            <span class="heart h1">💖</span>
+            <span class="heart h2">✨</span>
+            <span class="heart h3">💕</span>
+          </div>
+        </div>
+        <p class="character-hint">
+          <span class="hint-icon">👆</span> 
+          <span class="hint-text">Hover & click me!</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Star sparkle effect on mouse move
+  const sparkleContainer = document.getElementById('sparkle-container');
+  let lastSparkleTime = 0;
+  const sparkleDelay = 50; // Minimum time between sparkles in ms
+  
+  function createStar(x: number, y: number) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    
+    const star = document.createElement('div');
+    star.className = 'sparkle-star';
+    
+    // Random size for variety
+    const size = Math.random() * 15 + 10;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    
+    // Position at cursor
+    star.style.left = `${x - size / 2}px`;
+    star.style.top = `${y - size / 2}px`;
+    
+    // Random rotation
+    star.style.setProperty('--rotation', `${Math.random() * 360}deg`);
+    
+    // Random color (gold, white, or accent)
+    const colors = ['#ffd700', '#ffffff', '#a78bfa', '#60a5fa'];
+    star.style.setProperty('--star-color', colors[Math.floor(Math.random() * colors.length)]);
+    
+    sparkleContainer?.appendChild(star);
+    
+    // Remove after animation
+    setTimeout(() => {
+      star.remove();
+    }, 1000);
+  }
+  
+  document.addEventListener('mousemove', (e) => {
+    const now = Date.now();
+    if (now - lastSparkleTime >= sparkleDelay) {
+      createStar(e.clientX, e.clientY);
+      lastSparkleTime = now;
+    }
+  });
+  
+  // Animated Character Interactions
+  const character = document.getElementById('animated-character');
+  const speechBubble = document.getElementById('speech-bubble');
+  const speechText = document.getElementById('speech-text');
+  const actionHearts = document.getElementById('action-hearts');
+  
+  const greetings = [
+    'Hi there! 👋', 
+    'Hello! ✨', 
+    'Hey! Nice to see you! 😊', 
+    'Welcome! 🎉', 
+    'Glad you\'re here! 💫',
+    'Let\'s build something! 🚀'
+  ];
+  
+  const clickReactions = [
+    { text: 'Hehe! That tickles! 😆', mood: 'happy' },
+    { text: 'Wheee! 🎢', mood: 'excited' },
+    { text: 'You found me! 🙈', mood: 'shy' },
+    { text: 'Boop! 👆', mood: 'playful' },
+    { text: '*giggles* ✨', mood: 'happy' },
+    { text: 'Again! Again! 🎪', mood: 'excited' }
+  ];
+  
+  let isAnimating = false;
+  let clickCount = 0;
+  
+  // Hover - Greeting animation
+  character?.addEventListener('mouseenter', () => {
+    if (isAnimating) return;
+    
+    character.classList.add('hover-active');
+    speechBubble?.classList.add('visible');
+    
+    const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+    if (speechText) speechText.textContent = randomGreeting;
+    
+    // Wave animation
+    character.classList.add('waving');
+  });
+  
+  character?.addEventListener('mouseleave', () => {
+    if (isAnimating) return;
+    
+    character.classList.remove('hover-active', 'waving');
+    speechBubble?.classList.remove('visible');
+  });
+  
+  // Click - Fun reaction with bounce and hearts
+  character?.addEventListener('click', (e) => {
+    if (isAnimating) return;
+    isAnimating = true;
+    clickCount++;
+    
+    // Get random reaction
+    const reaction = clickReactions[Math.floor(Math.random() * clickReactions.length)];
+    
+    // Show speech bubble with reaction
+    speechBubble?.classList.add('visible');
+    if (speechText) speechText.textContent = reaction.text;
+    
+    // Add bounce animation
+    character.classList.add('bounce-animation');
+    character.classList.add(`mood-${reaction.mood}`);
+    
+    // Show floating hearts/sparkles
+    actionHearts?.classList.add('visible');
+    
+    // Special animation every 5 clicks
+    if (clickCount % 5 === 0) {
+      character.classList.add('spin-animation');
+      if (speechText) speechText.textContent = 'Woohoo! 🌟🎉🌟';
+    }
+    
+    // Reset after animation
+    setTimeout(() => {
+      character.classList.remove('bounce-animation', 'spin-animation');
+      character.classList.remove('mood-happy', 'mood-excited', 'mood-shy', 'mood-playful');
+      actionHearts?.classList.remove('visible');
+      
+      if (!character.matches(':hover')) {
+        speechBubble?.classList.remove('visible');
+      }
+      
+      isAnimating = false;
+    }, 1200);
+  });
+  
+  // Eye tracking - pupils follow cursor with smooth interpolation
+  const leftIris = document.querySelector('.left-eye .iris') as HTMLElement;
+  const rightIris = document.querySelector('.right-eye .iris') as HTMLElement;
+  const leftPupil = document.querySelector('.left-eye .pupil') as HTMLElement;
+  const rightPupil = document.querySelector('.right-eye .pupil') as HTMLElement;
+  
+  // Smooth tracking variables
+  let targetX = 0;
+  let targetY = 0;
+  let currentX = 0;
+  let currentY = 0;
+  const smoothing = 0.15; // Lower = smoother but slower
+  
+  // Track mouse position
+  document.addEventListener('mousemove', (e) => {
+    if (!character) return;
+    
+    const characterRect = character.getBoundingClientRect();
+    const eyeCenterX = characterRect.left + characterRect.width / 2;
+    const eyeCenterY = characterRect.top + characterRect.height * 0.35;
+    
+    // Calculate direction and distance
+    const deltaX = e.clientX - eyeCenterX;
+    const deltaY = e.clientY - eyeCenterY;
+    const distance = Math.hypot(deltaX, deltaY);
+    
+    // Normalize and calculate movement (max 6px movement)
+    const maxMove = 6;
+    const normalizedDistance = Math.min(distance / 150, 1);
+    const angle = Math.atan2(deltaY, deltaX);
+    
+    targetX = Math.cos(angle) * maxMove * normalizedDistance;
+    targetY = Math.sin(angle) * maxMove * normalizedDistance;
+    
+    // Dilate pupils based on distance (closer = bigger pupils - curiosity)
+    const pupilScale = distance < 200 ? 1.3 : distance < 400 ? 1.1 : 1;
+    if (leftPupil) leftPupil.style.transform = `translate(-50%, -50%) scale(${pupilScale})`;
+    if (rightPupil) rightPupil.style.transform = `translate(-50%, -50%) scale(${pupilScale})`;
+  });
+  
+  // Smooth animation loop for eye movement
+  function animateEyes() {
+    // Lerp towards target
+    currentX += (targetX - currentX) * smoothing;
+    currentY += (targetY - currentY) * smoothing;
+    
+    // Apply slightly different positions to each eye for natural look
+    const leftOffsetX = currentX * 0.9;
+    const rightOffsetX = currentX * 1.1;
+    
+    if (leftIris) {
+      leftIris.style.transform = `translate(calc(-50% + ${leftOffsetX}px), calc(-50% + ${currentY}px))`;
+    }
+    if (rightIris) {
+      rightIris.style.transform = `translate(calc(-50% + ${rightOffsetX}px), calc(-50% + ${currentY}px))`;
+    }
+    
+    requestAnimationFrame(animateEyes);
+  }
+  
+  // Start the animation loop
+  animateEyes();
+  
+  // Add occasional "look around" when idle
+  let lastMoveTime = Date.now();
+  let idleLookTimeout: ReturnType<typeof setTimeout>;
+  
+  function scheduleIdleLook() {
+    idleLookTimeout = setTimeout(() => {
+      if (Date.now() - lastMoveTime > 3000) {
+        // Random idle look
+        const randomX = (Math.random() - 0.5) * 8;
+        const randomY = (Math.random() - 0.5) * 4;
+        targetX = randomX;
+        targetY = randomY;
+        
+        // Return to center after a moment
+        setTimeout(() => {
+          if (Date.now() - lastMoveTime > 3000) {
+            targetX = 0;
+            targetY = 0;
+          }
+        }, 1500);
+      }
+      scheduleIdleLook();
+    }, 4000 + Math.random() * 3000);
+  }
+  
+  scheduleIdleLook();
+  
+  // Update last move time on mouse movement
+  document.addEventListener('mousemove', () => {
+    lastMoveTime = Date.now();
+  });
+</script>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-xl) var(--space-lg);
+    padding-top: calc(var(--space-xl) + 60px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    max-width: 1200px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .hero-text {
+    z-index: 1;
+  }
+
+  .greeting {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .name {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: var(--space-sm);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .tagline {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--space-md);
+  }
+
+  .description {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    max-width: 500px;
+    margin-bottom: var(--space-lg);
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    transition: all var(--transition-fast);
+  }
+
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-primary-hover);
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  /* Flashy Download Resume Button */
+  .download-resume {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7) !important;
+    background-size: 200% 200%;
+    color: white !important;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    animation: gradientFlow 3s ease infinite;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+  }
+
+  .download-resume::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+
+  .download-resume:hover::before {
+    left: 100%;
+  }
+
+  .download-resume::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7, #6366f1);
+    background-size: 400% 400%;
+    border-radius: 12px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation: borderGlow 2s ease infinite;
+  }
+
+  .download-resume:hover::after {
+    opacity: 1;
+  }
+
+  .download-resume:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 
+      0 8px 30px rgba(99, 102, 241, 0.5),
+      0 0 40px rgba(139, 92, 246, 0.3),
+      inset 0 0 20px rgba(255, 255, 255, 0.1);
+  }
+
+  .download-resume:active {
+    transform: translateY(-2px) scale(0.98);
+    animation: clickPulse 0.4s ease;
+  }
+
+  .download-resume svg {
+    transition: transform 0.3s ease;
+  }
+
+  .download-resume:hover svg {
+    animation: bounceDown 0.6s ease infinite;
+  }
+
+  .download-resume:active svg {
+    animation: downloadPop 0.3s ease;
+  }
+
+  @keyframes gradientFlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes borderGlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes bounceDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+
+  @keyframes clickPulse {
+    0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7); }
+    50% { box-shadow: 0 0 0 20px rgba(99, 102, 241, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+  }
+
+  @keyframes downloadPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3) translateY(5px); }
+    100% { transform: scale(1) translateY(0); }
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--color-text);
+    border: 2px solid var(--color-border);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .hero-visual {
+    position: relative;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Profile Image Styles */
+  .profile-image-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .character-hint {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+
+  .hint-icon {
+    animation: pointUp 1s ease-in-out infinite;
+  }
+
+  @keyframes pointUp {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  /* ============================================
+     🎭 MODERN ANIMATED CHARACTER
+     ============================================ */
+  
+  .animated-character {
+    position: relative;
+    width: 220px;
+    height: 300px;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .animated-character:hover,
+  .animated-character.hover-active {
+    transform: scale(1.08);
+  }
+
+  /* Floating Particles */
+  .character-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    font-size: 1rem;
+    opacity: 0.6;
+    animation: floatParticle 4s ease-in-out infinite;
+    color: var(--color-primary);
+  }
+
+  .p1 { top: 10%; left: 5%; animation-delay: 0s; }
+  .p2 { top: 20%; right: 0%; animation-delay: 0.8s; }
+  .p3 { top: 50%; left: -5%; animation-delay: 1.6s; }
+  .p4 { bottom: 30%; right: -5%; animation-delay: 2.4s; }
+  .p5 { bottom: 10%; left: 10%; animation-delay: 3.2s; }
+
+  @keyframes floatParticle {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
+    50% { transform: translateY(-15px) rotate(180deg); opacity: 1; }
+  }
+
+  /* Glow Effect Behind Character */
+  .character-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
+    opacity: 0.3;
+    border-radius: 50%;
+    animation: pulseGlow 3s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  .glow-2 {
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+    animation-delay: 1.5s;
+    opacity: 0.2;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
+  }
+
+  /* Character Body Container */
+  .character-body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    animation: gentleFloat 4s ease-in-out infinite;
+  }
+
+  @keyframes gentleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Head */
+  .character-head {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 130px;
+    height: 130px;
+    z-index: 2;
+  }
+
+  .head-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #ffecd2, #fcb69f);
+    border-radius: 50% 50% 45% 45%;
+    box-shadow: 
+      0 10px 30px rgba(0,0,0,0.1),
+      inset 0 -10px 30px rgba(0,0,0,0.05);
+  }
+
+  /* Hair with animated strands */
+  .character-hair {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 80px;
+    background: linear-gradient(135deg, #4a3728 0%, #2d1f16 50%, #4a3728 100%);
+    background-size: 200% 200%;
+    border-radius: 70px 70px 30px 30px;
+    z-index: 3;
+    animation: hairShine 5s ease-in-out infinite;
+    overflow: hidden;
+  }
+
+  @keyframes hairShine {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .hair-strand {
+    position: absolute;
+    bottom: -5px;
+    width: 25px;
+    height: 40px;
+    background: #3d2d20;
+    border-radius: 0 0 50% 50%;
+    animation: hairWave 2s ease-in-out infinite;
+  }
+
+  .s1 { left: 20%; animation-delay: 0s; }
+  .s2 { left: 45%; animation-delay: 0.3s; height: 45px; }
+  .s3 { left: 70%; animation-delay: 0.6s; }
+
+  @keyframes hairWave {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+
+  /* Face */
+  .character-face {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 95px;
+  }
+
+  /* Eyes */
+  .character-eyes {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+  }
+
+  .eye {
+    position: relative;
+    width: 30px;
+    height: 30px;
+  }
+
+  .eye-white {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 30%, #ffffff, #f0f0f0);
+    border-radius: 50%;
+    box-shadow: 
+      inset 0 3px 8px rgba(0,0,0,0.15),
+      0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .iris {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    background: radial-gradient(circle at 30% 30%, #7a6a5a, #3d2d20);
+    border-radius: 50%;
+    transition: transform 0.08s ease-out;
+    box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+  }
+
+  .pupil {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 9px;
+    height: 9px;
+    background: radial-gradient(circle at 40% 40%, #333, #000);
+    border-radius: 50%;
+    transition: transform 0.15s ease-out;
+  }
+
+  .eye-shine {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 5px;
+    height: 5px;
+    background: white;
+    border-radius: 50%;
+  }
+
+  /* Eyelid for blink animation */
+  .eyelid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(145deg, #ffecd2, #fcb69f);
+    border-radius: 50% 50% 0 0;
+    animation: blink 4s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 90%, 100% { height: 0%; }
+    95% { height: 100%; }
+  }
+
+  /* Eyebrows */
+  .eyebrow {
+    position: absolute;
+    top: 15px;
+    width: 22px;
+    height: 5px;
+    background: #4a3728;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+
+  .left-eyebrow {
+    left: 22px;
+    transform: rotate(-5deg);
+  }
+
+  .right-eyebrow {
+    right: 22px;
+    transform: rotate(5deg);
+  }
+
+  /* Nose */
+  .character-nose {
+    position: absolute;
+    top: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 10px;
+    background: rgba(200, 150, 120, 0.4);
+    border-radius: 50%;
+  }
+
+  /* Mouth */
+  .character-mouth {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .mouth-inner {
+    width: 100%;
+    height: 100%;
+    background: #d35d6e;
+    border-radius: 0 0 50% 50%;
+    transition: all 0.3s ease;
+  }
+
+  /* Happy mouth on hover */
+  .hover-active .mouth-inner,
+  .waving .mouth-inner {
+    height: 120%;
+    border-radius: 0 0 50% 50%;
+  }
+
+  /* Blush */
+  .blush {
+    position: absolute;
+    width: 18px;
+    height: 10px;
+    background: rgba(255, 130, 130, 0.5);
+    border-radius: 50%;
+    top: 50px;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+  }
+
+  .left-blush { left: 8px; }
+  .right-blush { right: 8px; }
+
+  .hover-active .blush {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  /* Torso */
+  .character-torso {
+    position: absolute;
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 110px;
+    background: linear-gradient(165deg, var(--color-primary), var(--color-primary-hover));
+    border-radius: 25px 25px 35px 35px;
+    box-shadow: 
+      0 15px 35px rgba(0,0,0,0.2),
+      inset 0 5px 15px rgba(255,255,255,0.1);
+    z-index: 1;
+  }
+
+  .shirt-collar {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 15px;
+    background: white;
+    border-radius: 0 0 20px 20px;
+    opacity: 0.9;
+  }
+
+  .shirt-logo {
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    opacity: 0.8;
+  }
+
+  /* Arms */
+  .arm {
+    position: absolute;
+    top: 10px;
+    width: 30px;
+    height: 75px;
+    background: linear-gradient(165deg, var(--color-primary), var(--color-primary-hover));
+    border-radius: 15px;
+    transform-origin: top center;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 0;
+  }
+
+  .left-arm {
+    left: -18px;
+    transform: rotate(15deg);
+  }
+
+  .right-arm {
+    right: -18px;
+    transform: rotate(-15deg);
+  }
+
+  .forearm {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 35px;
+    background: linear-gradient(165deg, var(--color-primary-hover), var(--color-primary));
+    border-radius: 14px;
+  }
+
+  .hand {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .hand-emoji {
+    font-size: 1.5rem;
+  }
+
+  /* Wave animation for right arm */
+  .waving .right-arm {
+    animation: armWave 0.6s ease-in-out infinite;
+  }
+
+  @keyframes armWave {
+    0%, 100% { transform: rotate(-15deg); }
+    25% { transform: rotate(-45deg) translateY(-5px); }
+    75% { transform: rotate(-25deg); }
+  }
+
+  /* Speech Bubble - Modern Design */
+  .speech-bubble {
+    position: absolute;
+    top: 0;
+    right: -100px;
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .bubble-content {
+    background: linear-gradient(135deg, white, #f8f9fa);
+    padding: 14px 20px;
+    border-radius: 20px;
+    box-shadow: 
+      0 10px 30px rgba(0,0,0,0.15),
+      0 0 0 1px rgba(0,0,0,0.05);
+  }
+
+  .bubble-tail {
+    position: absolute;
+    bottom: 10px;
+    left: -10px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    transform: rotate(45deg);
+    border-radius: 4px;
+    box-shadow: -3px 3px 5px rgba(0,0,0,0.05);
+  }
+
+  .speech-bubble.visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  .speech-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+  }
+
+  :root.dark .bubble-content {
+    background: linear-gradient(135deg, var(--color-bg-secondary), var(--color-bg));
+  }
+
+  :root.dark .bubble-tail {
+    background: var(--color-bg-secondary);
+  }
+
+  :root.dark .speech-text {
+    color: var(--color-text);
+  }
+
+  /* Action Hearts */
+  .action-hearts {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .action-hearts.visible {
+    opacity: 1;
+  }
+
+  .heart {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: floatUp 1s ease-out forwards;
+  }
+
+  .h1 { left: -30px; animation-delay: 0s; }
+  .h2 { left: 0px; animation-delay: 0.1s; }
+  .h3 { left: 30px; animation-delay: 0.2s; }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(0); opacity: 1; }
+    100% { transform: translateY(-80px) scale(1.5); opacity: 0; }
+  }
+
+  /* Bounce Animation on Click */
+  .bounce-animation {
+    animation: bounceJoy 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  @keyframes bounceJoy {
+    0%, 100% { transform: scale(1.08); }
+    30% { transform: scale(1.15) translateY(-15px); }
+    50% { transform: scale(1.05) translateY(0); }
+    70% { transform: scale(1.12) translateY(-8px); }
+  }
+
+  /* Spin Animation (every 5 clicks) */
+  .spin-animation {
+    animation: spinJoy 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  @keyframes spinJoy {
+    0% { transform: scale(1.08) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(180deg); }
+    100% { transform: scale(1.08) rotate(360deg); }
+  }
+
+  /* Mood Expressions */
+  .mood-excited .character-mouth {
+    width: 35px;
+    height: 20px;
+  }
+
+  .mood-excited .mouth-inner {
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  .mood-shy .blush {
+    opacity: 1;
+    transform: scale(1.4);
+    background: rgba(255, 100, 100, 0.6);
+  }
+
+  .mood-happy .eyebrow {
+    transform: translateY(-3px);
+  }
+
+  .mood-playful .character-head {
+    animation: headTilt 0.5s ease-in-out;
+  }
+
+  @keyframes headTilt {
+    0%, 100% { transform: translateX(-50%) rotate(0deg); }
+    50% { transform: translateX(-50%) rotate(10deg); }
+  }
+
+  /* Sparkle Container */
+  .sparkle-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+  }
+
+  /* Star Sparkle */
+  :global(.sparkle-star) {
+    position: absolute;
+    pointer-events: none;
+    animation: sparkle 1s ease-out forwards;
+  }
+
+  :global(.sparkle-star)::before,
+  :global(.sparkle-star)::after {
+    content: '';
+    position: absolute;
+    background: var(--star-color, #ffd700);
+  }
+
+  :global(.sparkle-star)::before {
+    width: 100%;
+    height: 30%;
+    top: 35%;
+    left: 0;
+    border-radius: 50%;
+  }
+
+  :global(.sparkle-star)::after {
+    width: 30%;
+    height: 100%;
+    top: 0;
+    left: 35%;
+    border-radius: 50%;
+  }
+
+  @keyframes sparkle {
+    0% {
+      opacity: 1;
+      transform: scale(0) rotate(var(--rotation, 0deg));
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1) rotate(var(--rotation, 0deg));
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.5) rotate(var(--rotation, 0deg)) translateY(-20px);
+    }
+  }
+
+  /* ============================================
+     🎬 NEW FASCINATING HERO ANIMATIONS
+     ============================================ */
+
+  /* Waving emoji animation */
+  .wave-emoji {
+    display: inline-block;
+    animation: wave 2.5s ease-in-out infinite;
+    transform-origin: 70% 70%;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    10% { transform: rotate(14deg); }
+    20% { transform: rotate(-8deg); }
+    30% { transform: rotate(14deg); }
+    40% { transform: rotate(-4deg); }
+    50% { transform: rotate(10deg); }
+    60% { transform: rotate(0deg); }
+  }
+
+  /* Typing cursor animation */
+  .typing-cursor {
+    display: inline-block;
+    animation: blink 1s step-end infinite;
+    color: var(--color-primary);
+    font-weight: 400;
+    margin-left: 2px;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Tagline words pop in */
+  .tagline-words {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tagline-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px) rotateX(-90deg);
+    animation: wordPopIn 0.6s ease forwards;
+  }
+
+  @keyframes wordPopIn {
+    to {
+      opacity: 1;
+      transform: translateY(0) rotateX(0);
+    }
+  }
+
+  /* Description fade in up */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease 1s forwards;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Enhanced button styles with hover effects */
+  .btn {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .btn-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  .btn:hover .btn-icon {
+    transform: translateX(5px) scale(1.2);
+    animation: iconBounce 0.5s ease;
+  }
+
+  @keyframes iconBounce {
+    0%, 100% { transform: translateX(5px) scale(1.2); }
+    50% { transform: translateX(8px) scale(1.3); }
+  }
+
+  /* Button shine effect */
+  .btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .btn:hover::after {
+    left: 100%;
+  }
+
+  /* Magnetic hover effect class */
+  .magnetic-hover {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* Enhanced scroll indicator */
+  .scroll-indicator {
+    position: absolute;
+    bottom: var(--space-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease 2s forwards;
+  }
+
+  .mouse {
+    width: 26px;
+    height: 40px;
+    border: 2px solid var(--color-text-muted);
+    border-radius: 13px;
+    position: relative;
+  }
+
+  .wheel {
+    width: 4px;
+    height: 8px;
+    background: var(--color-primary);
+    border-radius: 2px;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scroll 2s ease infinite;
+  }
+
+  @keyframes scroll {
+    0% { opacity: 1; top: 8px; }
+    100% { opacity: 0; top: 24px; }
+  }
+
+  .scroll-text {
+    opacity: 0.7;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* Greeting animation */
+  .greeting {
+    opacity: 0;
+    animation: slideInLeft 0.6s ease 0.2s forwards;
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Name gradient animation */
+  .name {
+    background-size: 200% 200%;
+    animation: gradientFlow 3s ease infinite;
+  }
+
+  @keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* CTA buttons entrance */
+  .cta-buttons {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease 1.2s forwards;
+  }
+
+  @media (max-width: 768px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .hero-visual {
+      display: none;
+    }
+
+    .cta-buttons {
+      justify-content: center;
+    }
+
+    .description {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .tagline-words {
+      justify-content: center;
+    }
+
+    .scroll-indicator {
+      display: none;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .wave-emoji,
+    .typing-cursor,
+    .tagline-word,
+    .fade-in-up,
+    .greeting,
+    .name,
+    .cta-buttons,
+    .scroll-indicator,
+    .wheel {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

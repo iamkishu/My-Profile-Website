@@ -1,0 +1,421 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Portfolio | Your Name", 
+  description = "Professional portfolio and resume showcasing my experience, projects, and skills." 
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    
+    <title>{title}</title>
+  </head>
+  <body>
+    <!-- Animated Background -->
+    <div class="animated-bg" id="animated-bg">
+      <div class="bg-gradient"></div>
+      <div class="floating-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
+      </div>
+      <div class="grid-lines"></div>
+    </div>
+    
+    <slot />
+    
+    <script>
+      // Theme initialization
+      const theme = localStorage.getItem('theme') || 
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+      
+      // Parallax scroll effect for background
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+              ticking = false;
+              return;
+            }
+            
+            const scrollY = window.scrollY;
+            const orbs = document.querySelectorAll('.orb');
+            const gridLines = document.querySelector('.grid-lines') as HTMLElement;
+            
+            orbs.forEach((orb, index) => {
+              const speed = (index + 1) * 0.1;
+              (orb as HTMLElement).style.transform = `translateY(${scrollY * speed}px)`;
+            });
+            
+            if (gridLines) {
+              gridLines.style.transform = `translateY(${scrollY * 0.05}px)`;
+            }
+            
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+      
+      // Gradient color cycling every 2 minutes
+      const gradientThemes = [
+        { primary: '59, 130, 246', accent: '139, 92, 246', name: 'blue-purple' },    // Blue to Purple
+        { primary: '236, 72, 153', accent: '168, 85, 247', name: 'pink-purple' },    // Pink to Purple
+        { primary: '34, 197, 94', accent: '59, 130, 246', name: 'green-blue' },      // Green to Blue
+        { primary: '249, 115, 22', accent: '234, 179, 8', name: 'orange-yellow' },   // Orange to Yellow
+        { primary: '99, 102, 241', accent: '236, 72, 153', name: 'indigo-pink' },    // Indigo to Pink
+        { primary: '20, 184, 166', accent: '99, 102, 241', name: 'teal-indigo' },    // Teal to Indigo
+      ];
+      
+      let currentGradientIndex = 0;
+      
+      function updateGradient() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        
+        const bgGradient = document.querySelector('.bg-gradient') as HTMLElement;
+        const orbs = document.querySelectorAll('.orb') as NodeListOf<HTMLElement>;
+        
+        if (!bgGradient) return;
+        
+        // Fade out
+        bgGradient.style.opacity = '0';
+        orbs.forEach(orb => orb.style.opacity = '0');
+        
+        setTimeout(() => {
+          currentGradientIndex = (currentGradientIndex + 1) % gradientThemes.length;
+          const theme = gradientThemes[currentGradientIndex];
+          
+          // Update CSS custom properties for the gradient
+          bgGradient.style.setProperty('--gradient-primary', theme.primary);
+          bgGradient.style.setProperty('--gradient-accent', theme.accent);
+          
+          // Update orb colors
+          orbs.forEach((orb, index) => {
+            if (index % 2 === 0) {
+              orb.style.background = `linear-gradient(135deg, rgba(${theme.primary}, 1), rgba(${theme.accent}, 1))`;
+            } else {
+              orb.style.background = `rgba(${theme.accent}, 1)`;
+            }
+          });
+          
+          // Fade in
+          bgGradient.style.opacity = '1';
+          orbs.forEach(orb => orb.style.opacity = '0.3');
+        }, 1000);
+      }
+      
+      // Change gradient every 2 minutes (120000ms)
+      setInterval(updateGradient, 120000);
+
+      // ============================================
+      // 🎮 KONAMI CODE EASTER EGG
+      // ↑ ↑ ↓ ↓ ← → ← → B A
+      // ============================================
+      const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+      let konamiIndex = 0;
+
+      document.addEventListener('keydown', (e) => {
+        if (e.code === konamiCode[konamiIndex]) {
+          konamiIndex++;
+          if (konamiIndex === konamiCode.length) {
+            activatePartyMode();
+            konamiIndex = 0;
+          }
+        } else {
+          konamiIndex = 0;
+        }
+      });
+
+      function activatePartyMode() {
+        // Create party overlay
+        const overlay = document.createElement('div');
+        overlay.id = 'party-mode';
+        overlay.innerHTML = `
+          <div class="party-content">
+            <h2>🎉 PARTY MODE ACTIVATED! 🎉</h2>
+            <p>You found the secret! Here's a virtual high-five: 🖐️</p>
+            <p style="font-size: 4rem; margin: 1rem 0;">🥳🎊🎈🍕🚀</p>
+            <button onclick="this.parentElement.parentElement.remove()">Thanks, I feel special now!</button>
+          </div>
+        `;
+        overlay.style.cssText = `
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.9);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 10000;
+          animation: partyFadeIn 0.5s ease;
+        `;
+        
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes partyFadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+          }
+          #party-mode .party-content {
+            text-align: center;
+            color: white;
+            animation: bounce 0.5s ease infinite alternate;
+          }
+          #party-mode h2 {
+            font-size: 2rem;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow 1s linear infinite;
+            background-size: 200% 200%;
+          }
+          @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+          }
+          #party-mode button {
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+          }
+          #party-mode button:hover {
+            transform: scale(1.1);
+          }
+          @keyframes bounce {
+            from { transform: translateY(-10px); }
+            to { transform: translateY(10px); }
+          }
+        `;
+        document.head.appendChild(style);
+        document.body.appendChild(overlay);
+
+        // Add confetti
+        for (let i = 0; i < 100; i++) {
+          setTimeout(() => createConfetti(), i * 30);
+        }
+      }
+
+      function createConfetti() {
+        const confetti = document.createElement('div');
+        const colors = ['#ff0000', '#ff7f00', '#ffff00', '#00ff00', '#0000ff', '#4b0082', '#8b00ff'];
+        confetti.style.cssText = `
+          position: fixed;
+          width: ${Math.random() * 10 + 5}px;
+          height: ${Math.random() * 10 + 5}px;
+          background: ${colors[Math.floor(Math.random() * colors.length)]};
+          left: ${Math.random() * 100}vw;
+          top: -20px;
+          z-index: 10001;
+          pointer-events: none;
+          animation: confettiFall ${Math.random() * 3 + 2}s linear forwards;
+          transform: rotate(${Math.random() * 360}deg);
+        `;
+        
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes confettiFall {
+            to {
+              top: 100vh;
+              transform: rotate(${Math.random() * 720}deg) translateX(${Math.random() * 200 - 100}px);
+            }
+          }
+        `;
+        document.head.appendChild(style);
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => confetti.remove(), 5000);
+      }
+
+      // ============================================
+      // 🔊 SUBTLE SOUND EFFECTS (optional)
+      // ============================================
+      // Uncomment below if you want click sounds
+      // document.addEventListener('click', () => {
+      //   const audio = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10...');
+      //   audio.volume = 0.1;
+      //   audio.play();
+      // });
+
+      console.log('%c👋 Hey there, curious developer!', 'font-size: 20px; color: #667eea;');
+      console.log('%c🎮 Try the Konami code: ↑ ↑ ↓ ↓ ← → ← → B A', 'font-size: 14px; color: #764ba2;');
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/tokens.css';
+  
+  /* Animated Background Styles */
+  .animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  
+  .bg-gradient {
+    position: absolute;
+    inset: 0;
+    --gradient-primary: 59, 130, 246;
+    --gradient-accent: 139, 92, 246;
+    background: radial-gradient(ellipse at 20% 20%, rgba(var(--gradient-primary), 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(var(--gradient-accent), 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(var(--gradient-primary), 0.04) 0%, transparent 70%);
+    animation: gradientShift 20s ease infinite;
+    transition: opacity 1s ease, background 1s ease;
+  }
+  
+  :root.dark .bg-gradient {
+    background: radial-gradient(ellipse at 20% 20%, rgba(var(--gradient-primary), 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(var(--gradient-accent), 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(var(--gradient-primary), 0.03) 0%, transparent 70%);
+  }
+  
+  @keyframes gradientShift {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+  }
+  
+  .floating-orbs {
+    position: absolute;
+    inset: 0;
+  }
+  
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.3;
+    animation: float 15s ease-in-out infinite;
+    transition: opacity 1s ease, background 1s ease;
+  }
+  
+  .orb-1 {
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    top: -10%;
+    left: -5%;
+    animation-delay: 0s;
+    animation-duration: 20s;
+  }
+  
+  .orb-2 {
+    width: 300px;
+    height: 300px;
+    background: var(--color-accent);
+    top: 30%;
+    right: -10%;
+    animation-delay: -5s;
+    animation-duration: 18s;
+  }
+  
+  .orb-3 {
+    width: 250px;
+    height: 250px;
+    background: var(--color-primary);
+    bottom: 20%;
+    left: 10%;
+    animation-delay: -10s;
+    animation-duration: 22s;
+  }
+  
+  .orb-4 {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(45deg, var(--color-accent), var(--color-primary));
+    top: 60%;
+    left: 50%;
+    animation-delay: -7s;
+    animation-duration: 25s;
+  }
+  
+  .orb-5 {
+    width: 350px;
+    height: 350px;
+    background: var(--color-primary);
+    bottom: -15%;
+    right: 20%;
+    animation-delay: -3s;
+    animation-duration: 23s;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate(30px, -30px) rotate(5deg);
+    }
+    50% {
+      transform: translate(-20px, 20px) rotate(-5deg);
+    }
+    75% {
+      transform: translate(20px, 10px) rotate(3deg);
+    }
+  }
+  
+  .grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.3;
+    mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+  }
+  
+  :root.dark .grid-lines {
+    opacity: 0.15;
+  }
+  
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .orb,
+    .bg-gradient {
+      animation: none !important;
+    }
+  }
+</style>
